@@ -1,0 +1,225 @@
+ P { 
+    font-family: Times, serif; /* Семейство шрифта */
+    color: navy; /* Синий цвет текста */
+    background-color: yellow; /* Цвет фона */ 
+   } 
+   }
+    H1 { 
+    font-family: Arial, Helvetica, Verdana, sans-serif; /* Гарнитура шрифта */ 
+    font-size: 150%; /* Размер текста */ 
+    font-weight: lighter; /* Светлое начертание */ 
+   }
+   img {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+ Q {
+    font-style: italic; /* Курсивное начертание */
+    quotes: "\00AB" "\00BB"; /* Меняем вид кавычек в цитате */
+   }
+   Q[title] {
+    color: maroon; /* Цвет текста */
+   }
+   div {
+height: 200px;
+background: linear-gradient(to right, #F6EFD2, #CEAD78);
+}
+
+
+$p: 12px;
+$iron: #263238;
+$font: faune, fantasy;
+
+*, *:before, *:after { box-sizing: border-box; }
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); transform-style: preserve-3d; }
+*:focus { outline: none!important; }
+body, html { height: 100%; }
+
+body {
+	height: 100%;
+	font-family: $font;
+}
+
+.photo-grid {
+	position: relative;
+	font-style: italic;
+	ul {
+		display: grid;
+		grid-template-columns: 1fr;
+		list-style: none;
+		li {
+			width: 100%;
+			overflow: hidden;
+		}
+	}
+	figure, picture, img {
+		display: block;
+		max-width: 100%;
+	}
+	figure {
+		position: relative;
+	}
+	figcaption {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+	fieldset {
+		display: flex;
+		align-items: flex-end;
+		justify-content: flex-end;
+		width: 100%;
+		height: 100%;
+		padding: $p/4;
+	}
+	.photo-close {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+	}
+	label, .photo-link {
+		cursor: pointer;
+	}
+	.photo-link {
+		will-change: opacity;
+		display: block;
+		position: relative;
+		z-index: 1;
+		padding: $p/4;
+	}
+	.icon {
+		display: block;
+		width: 25px;
+		height: 25px;
+		group, path, polyline, polygon, circle, ellipse, rect {
+			fill: none;
+			fill-rule: evenodd;
+			stroke: white;
+			stroke-width: 7px;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+	}
+	input {
+		display: none;
+		~ label.photo-link {
+			display: none;
+		}
+		&:checked {
+			~ dl {
+				transform: none;
+				opacity: 1;
+				z-index: 2;
+			}
+			~ .photo-close {
+				z-index: unset;
+			}
+			~ label.photo-link {
+				opacity: 0;
+			}
+		}
+	}
+	dl {
+		transform: translateY(25%);
+		opacity: 0;
+		z-index: 0;
+		transition: all .3s ease-out;
+		will-change: opacity, transform;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		padding: $p;
+		font-size: 24px;
+		color: white;
+		background-color: rgba(darken($iron, 10%), .9);
+		label, .photo-link {
+			position: absolute;
+			right: 0;
+			z-index: 1;
+			padding: $p/2;
+		}
+		label {
+			top: 0;
+		}
+		.photo-link {
+			bottom: 0;
+		}
+		div {
+			position: relative;
+			z-index: 0;
+		}
+		dt, dd {
+			display: inline;
+		}
+		dt {
+			opacity: 0.7;
+			font-weight: bold;
+			&:after {
+				content: ": "
+			}
+		}
+	}
+}
+
+@supports (-webkit-backdrop-filter: blur(10px)) {
+	.photo-grid {
+		dl {
+			background-color: rgba(darken($iron, 10%), .4);
+			-webkit-backdrop-filter: blur(5px);
+			backdrop-filter: blur(5px);
+		}
+	}
+}
+
+@media only screen and (min-width: 600px) {
+	.photo-grid {
+		input ~ label.photo-link {
+			opacity: 0;
+		}
+		li:hover input {
+			~ label.photo-link {
+				opacity: 1;
+			}
+			&:checked ~ label.photo-link {
+				opacity: 0;
+			}
+		}
+		input {
+			~ label.photo-link {
+				display: block;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 800px) {
+	.photo-grid {
+		ul {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+}
+
+@media only screen and (min-width: 2000px) {
+	.photo-grid {
+		ul {
+			grid-template-columns: 1fr 1fr 1fr;
+		}
+	}
+}
+
+@media only screen and (min-width: 3000px) {
+	.photo-grid {
+		ul {
+			grid-template-columns: 1fr 1fr 1fr 1fr;
+		}
+	}
+}
